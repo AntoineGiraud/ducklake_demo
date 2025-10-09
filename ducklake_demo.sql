@@ -31,36 +31,32 @@ show tables;
 -------------------------------------
 -- play with some data
 -------------------------------------
+CREATE or replace TABLE nl_train_stations as
+  FROM 'https://blobs.duckdb.org/nl_stations.csv';
 
-CREATE or replace TABLE nl_train_stations AS
-    FROM 'https://blobs.duckdb.org/nl_stations.csv';
+-- à quoi ressemble notre db / catalogue ?
+show tables;
+from nl_train_stations limit 10;
+summarize nl_train_stations;
 
--- valider si on voit bien les fichiers
+-- à quoi ressemble le(s) fichiers ?
 FROM glob('~/Documents/codes/ducklake_demo/data_files/**/*');
 FROM '~/Documents/codes/ducklake_demo/data_files/**/*.parquet' LIMIT 10;
 
+----------------------------
 -- allez un p'tit update
-UPDATE nl_train_stations
-SET name_long = 'Johan Cruijff ArenA'
-WHERE code = 'ASB';
-
+----------------------------
+UPDATE nl_train_stations SET name_long = 'Johan Cruijff ArenA' WHERE code = 'ASB';
 -- ça fonctionne ?
-SELECT name_long
-FROM nl_train_stations
-WHERE code = 'ASB';
+SELECT name_long FROM nl_train_stations WHERE code = 'ASB';
 
--- la liste d'épicerie actuelle ?
-show tables;
-summarize nl_train_stations;
-
--- oh que de monde
-FROM glob('~/Documents/codes/ducklake_demo/data_files/**/*');
-	--> le .parquet original
-	---> un .parquet avec la nouvelle valeur 
-	from '~/Documents/codes/ducklake_demo/data_files/main/nl_train_stations/ducklake-0199c45d-2303-73bf-b40a-61b9f9ee82c1.parquet';
-	---> un .parquet avec la ligne deleted (ancienne valeur)
-	from '~/Documents/codes/ducklake_demo/data_files/main/nl_train_stations/*-delete.parquet';
-
+-- que sont devenus les fichiers ?
+FROM glob('ducklake_demo/data_files/**/*');
+    --> le .parquet original
+    ---> un .parquet avec la nouvelle valeur 
+    from '~/Documents/codes/ducklake_demo/data_files/main/nl_train_stations/ducklake-0199c45d-2303-73bf-b40a-61b9f9ee82c1.parquet';
+    ---> un .parquet avec la ligne deleted (ancienne valeur)
+    from '~/Documents/codes/ducklake_demo/data_files/main/nl_train_stations/*-delete.parquet'; 
 
 -------------------------------------
 -- TimeTravel vous avez dit ??
