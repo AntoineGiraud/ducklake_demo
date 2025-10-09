@@ -1,9 +1,12 @@
 # P'tit répo démo DuckLake x PostgreSQL
 
-## lancer la db PostgreSQL
+## Commandes podman pour lancer notre BDD/Catalogue PostgreSQL
 
-- `podman-compose up -d`
-- `podman-compose down` 
+Podan est un équivalent docker cli
+
+- Lancer `podman-compose up -d`
+- Valider `podman ps`
+- Fermer `podman-compose down` 
 
 ## Connecter DuckDB à notre DuckLake
 
