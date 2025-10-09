@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: docker.io/library/postgres:latest
+    container_name: duckdlake-db
+    environment:
+      POSTGRES_USER: duckuser
+      POSTGRES_PASSWORD: duckpass
+      POSTGRES_DB: ducklake_catalog
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
