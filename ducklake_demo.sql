@@ -20,7 +20,8 @@ CREATE SECRET (
 ATTACH 'ducklake:postgres:dbname=ducklake_catalog host=localhost' AS my_ducklake
 (
 	DATA_PATH '/home/agiraud/Documents/codes/ducklake_demo/data_files/',
-    --> le ~ à la place de /home/mon_user/ ne fonctionne pas ici ...
+    -- le ~ à la place de /home/mon_user/ ne fonctionne pas ici ... qd on est dans DBeaver
+    -- d'ailleurs, si depuis duckdb en cli `DATA_PATH 'data_files'` fonctionne très bien
 	OVERRIDE_DATA_PATH True
 );
 -- use demo_ducklake; detach my_ducklake;

@@ -15,8 +15,9 @@ Podan est un équivalent docker cli
 
 ### Etapes
 
-1. Se connecter à la db catalogue gérée par PostgreSQL & ajouter une table à DuckLake
-   ![ducklake_connect_and_create_table](./img/ducklake_1_connect_and_create_table.png)
+1. Se connecter à la db catalogue gérée par PostgreSQL (*secret à mieux gérer bien sûr*)\
+  & ajouter une table à DuckLake
+  ![ducklake_connect_and_create_table](./img/ducklake_1_connect_and_create_table.png)
 2. Réaliser un update & regarder l'impact (fichiers créés ...)
   ![ducklake_update](./img/ducklake_2_update.png)\
   On voit qu'on a 1 petit nouveau fichier \
