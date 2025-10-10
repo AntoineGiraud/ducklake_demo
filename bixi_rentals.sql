@@ -38,3 +38,28 @@ COPY rentals_2020 TO '~/Documents/rentals_2020_partitions/'
 
 -- à quoi ressemblent les fichiers générés ?!
 FROM glob('~/Documents/rentals_2020_partitions/**/*');
+
+
+----------------------------------------
+-- offload to s3
+----------------------------------------
+use demo_ducklake; -- bdd duckdb
+
+CREATE or replace secret(
+    TYPE s3,
+    PROVIDER config,
+    KEY_ID 'xxxxx',
+    SECRET 'xxxxxxxx',
+	-- ENDPOINT 'url_s3_prive'
+);
+
+copy rentals_2020 to 's3://mon_bucket/rentals_2020.parquet';
+
+-- offload en partitions date ?!!
+COPY rentals_2020 TO 's3://mon_bucket/rentals_2020_partitions/'
+(FORMAT parquet, PARTITION_BY (start_date));
+-- OVERWRITE is not supported for remote file systems
+
+-- la liste des fichiers présents ??
+FROM glob('s3://mon_bucket/**/*');
+
