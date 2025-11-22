@@ -3,16 +3,20 @@
 --> [doc](https://duckdb.org/docs/stable/core_extensions/httpfs/s3api)
 --------------------------------------------------------------------------------
 
-CREATE or replace secret(
+
+create or replace secret (
     TYPE s3,
     PROVIDER config,
-    KEY_ID 'xxxxxx',
-    SECRET 'yyyyyyyyyyyy',
-	-- ENDPOINT 'url_de_mon_s3_prive'
+    KEY_ID 'ducklake_s3_writer',
+    SECRET 'writer_secret',
+    -- session_token 'xxxx', -- pour aws
+    REGION 'us-east-1', -- pour aws
+	URL_STYLE 'path',
+	ENDPOINT 'http://127.0.0.1:9000'
 );
 
 -- la liste des fichiers présents ??
-FROM glob('s3://mon_bucket/**/*');
+FROM glob('s3://coucou/');
 -- à quoi ressemble le contenu du fichier ?
 summarize 's3://mon_bucket/ducklake*.parquet';
 
@@ -66,16 +70,13 @@ INSTALL httpfs; LOAD httpfs;
 -- pas forcément nécessaire
 --SET ca_cert_file = '~/orange-certificates.crt';
 --SET enable_server_cert_verification = true;
- 
+
 -- SET s3_region = 'us-east-1';
 -- SET s3_endpoint = 'url_de_mon_s3_prive';
 SET s3_use_ssl='true';
 SET s3_url_style='path';
 SET s3_access_key_id='xxxxxx';
 SET s3_secret_access_key='yyyyyyyyyyyy';
- 
- 
+
+
 FROM glob('s3://mon_bucket/*.parquet');
-
-
-
